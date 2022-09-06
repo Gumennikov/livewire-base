@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Facades\Filament;
+use Illuminate\Foundation\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Register the Filament theme file using Vite
+        // https://filamentphp.com/docs/2.x/admin/appearance#including-frontend-assets
+        Filament::serving(function () {
+            Filament::registerTheme(
+                app(Vite::class)('resources/css/filament.css')
+            );
+        });
     }
 }
